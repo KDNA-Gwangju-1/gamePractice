@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     void SpawnEmerald(Vector3 position)
     {
         var emerald = new GameObject("ChaosEmerald");
-        emerald.transform.position = position + Vector3.up * 1.4f;
+        emerald.transform.position = position + Vector3.up * 2.2f;
 
         var core = new GameObject("GemCore");
         core.transform.parent = emerald.transform;

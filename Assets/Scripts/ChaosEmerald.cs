@@ -5,12 +5,15 @@ public class ChaosEmerald : MonoBehaviour
     public float spinSpeed = 80f;
     public float bobSpeed = 2f;
     public float bobHeight = 0.3f;
+    public float activationDelay = 1f;
 
     Vector3 basePos;
+    float spawnTime;
 
     void Start()
     {
         basePos = transform.position;
+        spawnTime = Time.time;
     }
 
     void Update()
@@ -24,6 +27,7 @@ public class ChaosEmerald : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        if (Time.time - spawnTime < activationDelay) return;
         if (GameManager.Instance != null) GameManager.Instance.WinGame();
         Destroy(gameObject);
     }
