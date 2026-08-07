@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/KGA01/.claude/**)",
+      "Read(//c/Users/KGA01/**)",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}
