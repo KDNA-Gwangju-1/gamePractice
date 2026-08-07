@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     Renderer rend;
     Color originalColor;
     Coroutine flashRoutine;
+    bool isSuper;
 
     void Awake()
     {
@@ -53,6 +54,40 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         rend.material.color = originalColor;
         flashRoutine = null;
+    }
+
+    public void TransformSuper()
+    {
+        if (isSuper) return;
+        isSuper = true;
+
+        moveForce *= 1.6f;
+        maxSpeed *= 1.6f;
+        jumpForce *= 1.4f;
+
+        Color gold = new Color(1f, 0.85f, 0.15f);
+        originalColor = gold;
+        if (rend != null)
+        {
+            rend.material.color = gold;
+            rend.material.EnableKeyword("_EMISSION");
+            rend.material.SetColor("_EmissionColor", gold * 2f);
+        }
+
+        var glowGo = new GameObject("SuperGlow");
+        glowGo.transform.parent = transform;
+        glowGo.transform.localPosition = Vector3.zero;
+        var glow = glowGo.AddComponent<Light>();
+        glow.type = LightType.Point;
+        glow.color = gold;
+        glow.range = 1.8f;
+        glow.intensity = 2f;
+
+        var auraGo = new GameObject("SuperAura");
+        auraGo.transform.parent = transform;
+        auraGo.transform.localPosition = Vector3.zero;
+        auraGo.transform.localRotation = Quaternion.identity;
+        auraGo.AddComponent<SuperAura>();
     }
 
     void FixedUpdate()

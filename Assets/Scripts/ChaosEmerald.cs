@@ -28,6 +28,8 @@ public class ChaosEmerald : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         if (Time.time - spawnTime < activationDelay) return;
+        var pc = other.GetComponent<PlayerController>();
+        if (pc != null) pc.TransformSuper();
         if (GameManager.Instance != null) GameManager.Instance.WinGame();
         Destroy(gameObject);
     }
